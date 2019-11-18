@@ -1,41 +1,41 @@
-let offset = 0;
-let tylerImage;
-let tyler = [];
+var particles = [];
 
-
-function preload(){
-tyler1 = loadImage("images/tyler-3.jpg");
-tyler2 = loadImage("images/tyler-4.jpg");
-}
 function setup(){
-createCanvas(1378,700);
-for(let i = 0; i < 100; i++){
-//let x = random(width);
-//let y = random(height);
-tyler.push(new Boid ());}
-//(x, y, random(5), speed, 2)
+  createCanvas(1000, 700);
+  background(0, 255, 0);
 }
 
-function draw(){
-
-background(165, 255, 160);
-tint(255, 127); // Display at half opacity
-  //image(eyeImage2, offset, 0);
-
-tyler2.resize(1000,800)
-image(tyler2,209,-20);
-
-noTint();
-for (let boid of tyler){
-boid.tyler(tyler);
-  boid.display();
-boid.update();
-tyler1.resize(100, 70);
-
+function mousePressed(){
+  for(var i = 0; i < 10; i++) {
+    var x = random(width)
+    var y = random(height);
+    var z = 100;
+    particles[i] = new Particle(x, y, z);
+  }
 
 }
 
+function draw() {
+  for(var i = 0; i < particles.length; i++) {
+    particles[i].move();
+    particles[i].display();
+  }
+}
 
+function Particle(tempX, tempY, tempDiameter){
+  this.x = tempX;
+  this.y = tempY;
+  this.diameter = tempDiameter;
+  this.speed = random();
 
+  this.move = function() {
+    this.x += this.speed
+
+  };
+
+  this.display = function() {
+    fill(255,0,0);
+    ellipse(this.x, this.y, this.diameter);
+  };
 
 }
