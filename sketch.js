@@ -1,41 +1,82 @@
-var particles = [];
+var tyler1;
+var tyler2;
+var tyler3;
+var tyler4;
+var face1, face2, face3, face4;
+//var pic;
 
-function setup(){
-  createCanvas(1000, 700);
-  background(0, 255, 0);
+var randYPos1;
+var randYPos2;
+var randYPos3;
+var randYPos4;
+
+function preload() {
+  face1 = loadImage("images/tyler.jpg");
+  face2 = loadImage("images/tyler-2.jpg");
+  face3 = loadImage("images/tyler-3.jpg");
+  face4 = loadImage("images/tyler-4.jpg");
 }
 
-function mousePressed(){
-  for(var i = 0; i < 10; i++) {
-    var x = random(width)
-    var y = random(height);
-    var z = 100;
-    particles[i] = new Particle(x, y, z);
-  }
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+
+  randYPos1 = random(height);
+  randYPos2 = random(height);
+  randYPos3 = random(height);
+  randYPos4 = random(height);
+
+
+
+  tyler1 = new Meme(face1,1, randYPos1, 0, 2);
+  tyler2 = new Meme(face2,1,randYPos2, 0, 5);
+  tyler3 = new Meme(face3,1, randYPos3, 0, 10);
+  tyler4 = new Meme(face4,1, randYPos4, 0, 3);
 
 }
 
 function draw() {
-  for(var i = 0; i < particles.length; i++) {
-    particles[i].move();
-    particles[i].display();
-  }
+  background(0);
+
+  tyler1.update();
+  tyler1.display();
+
+  tyler2.update();
+  tyler2.display();
+
+  tyler3.update();
+  tyler3.display();
+
+  tyler4.update();
+  tyler4.display();
+
+  let t = 'WHICH TYLER IS THE FASTEST?';
+fill(0,200,200);
+text(t, 150, 150); 
+
 }
 
-function Particle(tempX, tempY, tempDiameter){
-  this.x = tempX;
-  this.y = tempY;
-  this.diameter = tempDiameter;
-  this.speed = random();
+function Meme(pic,tempSize, tempY, tempX,tempSpeed) {
+  this.pic = pic;
+  this.size = tempSize/3;
+  //this.colorR = tempColorR;
+  this.yPos = tempY;
+  this.xPos = tempX;
+  //this.accel = accel;
+  this.speed = tempSpeed;
 
-  this.move = function() {
-    this.x += this.speed
+  this.update = function () {
+    this.xPos = this.xPos + this.speed;
 
-  };
+    if (this.xPos > width) {
+      this.xPos +=1; 
+    }
 
-  this.display = function() {
-    fill(255,0,0);
-    ellipse(this.x, this.y, this.diameter);
-  };
+  }
 
+  this.display = function () {
+
+    image(pic,this.size * 0.5 + this.xPos,randYPos1);
+
+    
+  }
 }
